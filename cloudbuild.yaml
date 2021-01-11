@@ -7,4 +7,4 @@ steps:
     args: ["package", "-Dmaven.test.skip=true"]
   - name: gcr.io/cloud-builders/docker
     args: ["build", "-t", "europe-docker.pkg.dev/$PROJECT_ID/hellospring", "--build-arg=JAR_FILE=target/hello-spring-1.0.0.jar", "."]
-images: ["europe-docker.pkg.dev/gcr.io/$PROJECT_ID/hellospring"]
+images: ["europe-docker.pkg.dev/$PROJECT_ID/hellospring"]
