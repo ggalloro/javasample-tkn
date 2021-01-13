@@ -17,7 +17,7 @@ spec:
         app: "javasample"
     spec:
       containers:
-      - name: "hellospring-1"
+      - name: "javasample"
         image: "europe-docker.pkg.dev/galloro-gke/gcb-study/javasample"
 ---
 apiVersion: "autoscaling/v2beta1"
