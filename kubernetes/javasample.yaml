@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "hellospring-1"
-        image: "europe-docker.pkg.dev/galloro-gke/gcb-study/hellospring:latest"
+        image: "europe-docker.pkg.dev/galloro-gke/gcb-study/javasample"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
@@ -50,8 +50,8 @@ metadata:
 spec:
   externalTrafficPolicy: Cluster
   ports:
+  - name: http
     port: 80
-    protocol: TCP
     targetPort: 8080
   selector:
     app: javasample
