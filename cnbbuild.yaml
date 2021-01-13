@@ -1,0 +1,11 @@
+steps:
+- name: gcr.io/galloro-gke/pack
+  args: ['build','--builder','cnbs/sample-builder:bionic','europe-docker.pkg.dev/$PROJECT_ID/gcb-study/javasample:$TAG_NAME']
+- name: gcr.io/cloud-builders/gke-deploy
+  args:
+  - run
+  - --filename=kubernetes/javasample.yaml
+  - --image=europe-docker.pkg.dev/$PROJECT_ID/gcb-study/javasample:$TAG_NAME
+  - --cluster=devcluster
+  - --location=europe-west1-b
+
