@@ -1,0 +1,60 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "javasample"
+  namespace: "default"
+  labels:
+    app: "javasample"
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: "javasample"
+  template:
+    metadata:
+      labels:
+        app: "javasample"
+    spec:
+      containers:
+      - name: "hellospring-1"
+        image: "europe-docker.pkg.dev/galloro-gke/gcb-study/hellospring:latest"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "javasample-hpa-eywa"
+  namespace: "default"
+  labels:
+    app: "javasample"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "javasample"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  labels:
+    app: javasample
+  name: javasample
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: javasample
+  sessionAffinity: None
+  type: LoadBalancer
+
