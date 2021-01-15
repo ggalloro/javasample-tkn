@@ -2,18 +2,18 @@ steps:
 - name: maven:3-jdk-8
   entrypoint: mvn
   args: ['package','-Dmaven.test.skip=true']
-  id: 0
+  id: package
 - name: gcr.io/cloud-builders/mvn
   args: ['deploy']
-  id: 1
+  id: deploy
 - name: gcr.io/cloud-builders/docker
   args: ['build','-t','europe-docker.pkg.dev/$PROJECT_ID/gcb-study/javasample:$SHORT_SHA','--build-arg=JAR_FILE=target/sample-0.0.1-SNAPSHOT.jar','.']
-  id: 2
-  waitFor: ['0']
+  id: build
+  waitFor: ['package']
 - name: gcr.io/cloud-builders/docker
   args: ['push','europe-docker.pkg.dev/$PROJECT_ID/gcb-study/javasample:$SHORT_SHA']
-  id: 3
-  waitFor: ['0','2']
+  id: push
+  waitFor: ['package','build']
 - name: gcr.io/cloud-builders/gke-deploy
   args:
   - run
@@ -21,6 +21,6 @@ steps:
   - --image=europe-docker.pkg.dev/$PROJECT_ID/gcb-study/javasample:$SHORT_SHA
   - --cluster=$_CLUSTER
   - --location=$_LOCATION
-  id: 4
-  waitFor: ['0','2','3']
+  id: gke-deploy
+  waitFor: ['package','build','push']
 
