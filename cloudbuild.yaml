@@ -22,4 +22,6 @@ steps:
   - --location=$_LOCATION
   id: gke-deploy
   waitFor: ['package','build','push']
+options:
+  machineType: E2_HIGHCPU_32
 
