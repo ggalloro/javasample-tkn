@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "javasample"
-        image: "europe-docker.pkg.dev/galloro-gke/gcb-study/javasample"
+        image: "europe-docker.pkg.dev/galloro-demos/cloudbuilds/javasample"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
