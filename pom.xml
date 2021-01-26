@@ -16,11 +16,11 @@
     <distributionManagement>
 		<snapshotRepository>
 		  <id>artifact-registry</id>
-		  <url>artifactregistry://europe-maven.pkg.dev/galloro-gke/java-artifacts</url>
+		  <url>artifactregistry://europe-maven.pkg.dev/galloro-demos/javabin</url>
 		</snapshotRepository>
 		<repository>
 		  <id>artifact-registry</id>
-		  <url>artifactregistry://europe-maven.pkg.dev/galloro-gke/java-artifacts</url>
+		  <url>artifactregistry://europe-maven.pkg.dev/galloro-demos/javabin</url>
 		</repository>
 	  </distributionManagement>
 	<properties>
@@ -29,7 +29,7 @@
 	<repositories>
 		<repository>
 		  <id>artifact-registry</id>
-		  <url>artifactregistry://europe-maven.pkg.dev/galloro-gke/java-artifacts</url>
+		  <url>artifactregistry://europe-maven.pkg.dev/galloro-demos/javabin</url>
 		  <releases>
 			<enabled>true</enabled>
 		  </releases>

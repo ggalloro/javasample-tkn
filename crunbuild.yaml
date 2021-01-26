@@ -6,11 +6,11 @@ steps:
   args: ['deploy']
   id: deploy
 - name: gcr.io/cloud-builders/docker
-  args: ['build','-t','europe-docker.pkg.dev/$PROJECT_ID/gcb-study/javasample:$SHORT_SHA','--build-arg=JAR_FILE=target/sample-0.0.1-SNAPSHOT.jar','.']
+  args: ['build','-t','europe-docker.pkg.dev/$PROJECT_ID/cloudbuilds/javasample:$SHORT_SHA','--build-arg=JAR_FILE=target/sample-0.0.1-SNAPSHOT.jar','.']
   id: build
   waitFor: ['package']
 - name: gcr.io/cloud-builders/docker
-  args: ['push','europe-docker.pkg.dev/$PROJECT_ID/gcb-study/javasample:$SHORT_SHA']
+  args: ['push','europe-docker.pkg.dev/$PROJECT_ID/cloudbuilds/javasample:$SHORT_SHA']
   id: push
   waitFor: ['package','build']
 - name: gcr.io/google.com/cloudsdktool/cloud-sdk
@@ -19,7 +19,7 @@ steps:
   - run
   - deploy
   - javasample
-  - --image=europe-docker.pkg.dev/$PROJECT_ID/gcb-study/javasample:$SHORT_SHA
+  - --image=europe-docker.pkg.dev/$PROJECT_ID/cloudbuilds/javasample:$SHORT_SHA
   - --region=$_LOCATION
   - --platform=managed
   - --allow-unauthenticated
