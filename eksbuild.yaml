@@ -26,4 +26,3 @@ steps:
     gcloud beta container hub memberships get-credentials eks-cluster && \
     kubectl --kubeconfig gateway-kubeconfig apply -f kubernetes/javasample.yaml
 id: deploy-to-eks
-waitFor: ['package','build','push','prepare']
