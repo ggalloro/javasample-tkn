@@ -10,6 +10,12 @@ steps:
   args: ['push','europe-docker.pkg.dev/$PROJECT_ID/cloudbuilds/javasample:$SHORT_SHA']
   id: push
   waitFor: ['package','build']
+- name: "gcr.io/cloud-builders/gke-deploy"
+  id: prepare
+  args:
+  - prepare
+  - --filename=kubernetes/javasample.yaml
+  - --image=europe-docker.pkg.dev/$PROJECT_ID/cloudbuilds/javasample:$SHORT_SHA
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: /bin/sh
   args:
@@ -20,4 +26,4 @@ steps:
     gcloud beta container hub memberships get-credentials eks-cluster && \
     kubectl --kubeconfig gateway-kubeconfig apply -f kubernetes/javasample.yaml
 id: deploy-to-eks
-waitFor: ['package','build','push']
+waitFor: ['package','build','push','prepare']
