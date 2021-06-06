@@ -10,13 +10,19 @@ steps:
   args: ['push','europe-docker.pkg.dev/$PROJECT_ID/cloudbuilds/javasample:$SHORT_SHA']
   id: push
   waitFor: ['package','build']
-- name: gcr.io/cloud-builders/gke-deploy
+- name: "gcr.io/cloud-builders/gke-deploy"
+  id: prepare
   args:
-  - run
+  - prepare
   - --filename=kubernetes/javasample.yaml
   - --image=europe-docker.pkg.dev/$PROJECT_ID/cloudbuilds/javasample:$SHORT_SHA
-  - --cluster=$_CLUSTER
-  - --location=$_LOCATION
-  id: gke-deploy
-  waitFor: ['package','build','push']
-
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: /bin/sh
+  args:
+  - '-c'
+  - |
+    set -x && \
+    export KUBECONFIG="$(pwd)/gateway-kubeconfig" && \
+    gcloud beta container hub memberships get-credentials $_CLUSTER && \
+    kubectl --kubeconfig gateway-kubeconfig apply -f output/expanded
+id: deploy-to-eks
