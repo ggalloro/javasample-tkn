@@ -13,31 +13,11 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>sample</name>
 	<description>Sample Java Application</description>
-    <distributionManagement>
-		<snapshotRepository>
-		  <id>artifact-registry</id>
-		  <url>artifactregistry://europe-maven.pkg.dev/galloro-demos/javabin</url>
-		</snapshotRepository>
-		<repository>
-		  <id>artifact-registry</id>
-		  <url>artifactregistry://europe-maven.pkg.dev/galloro-demos/javabin</url>
-		</repository>
-	  </distributionManagement>
+
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
-	<repositories>
-		<repository>
-		  <id>artifact-registry</id>
-		  <url>artifactregistry://europe-maven.pkg.dev/galloro-demos/javabin</url>
-		  <releases>
-			<enabled>true</enabled>
-		  </releases>
-		  <snapshots>
-			<enabled>true</enabled>
-		  </snapshots>
-		</repository>
-	  </repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,13 +35,6 @@
 	</dependencies>
 
 	<build>
-		<extensions>
-			<extension>
-			  <groupId>com.google.cloud.artifactregistry</groupId>
-			  <artifactId>artifactregistry-maven-wagon</artifactId>
-			  <version>2.1.0</version>
-			</extension>
-		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
