@@ -1,7 +1,11 @@
+# Dockerfile optimized for caching doing the mvn package during image build
+# This will not work with tekton-workshop main branch, restore the Dockerfile.old for that
+
 FROM maven:alpine as build
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
+RUN mvn dependency:go-offline
 COPY src src
 RUN mvn package -Dmaven.test.skip=true
 
